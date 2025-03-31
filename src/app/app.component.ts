@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
 import * as posedetection from '@tensorflow-models/pose-detection';
+import { drawPose } from './pose-utils';
 
 @Component({
   selector: 'app-root',
@@ -9,47 +10,53 @@ import * as posedetection from '@tensorflow-models/pose-detection';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+export class AppComponent implements OnDestroy {
   @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
 
   mediaStream!: MediaStream;
   detector!: posedetection.PoseDetector;
-  isDetecting = false;
-
-  async ngAfterViewInit() {
-    await this.loadModel();
-    this.startCamera();
-  }
-
-  async loadModel() {
-    console.log("Inicjalizacja TensorFlow.js...");
-    await tf.setBackend('webgl');
-    await tf.ready();
-
-    console.log("Ładowanie modelu MoveNet...");
-    try {
-      this.detector = await posedetection.createDetector(posedetection.SupportedModels.MoveNet, {
-        modelType: posedetection.movenet.modelType.SINGLEPOSE_LIGHTNING
-    });
-    console.log("Model MoveNet został załadowany.");
-    } catch (error) {
-      console.error("Błąd podczas ładowania modelu MoveNet:", error);
-    }
-  }
+  private isDetecting = false;
   
   async startCamera() {
     try {
+      await this.loadModel();
       console.log("Startuje kamere");
       this.mediaStream = await navigator.mediaDevices.getUserMedia({ video: true});
 
       this.videoElement.nativeElement.srcObject = this.mediaStream;
+      this.videoElement.nativeElement.onloadedmetadata = () => {
+        this.adjustCanvasSize();
+      };
       await this.videoElement.nativeElement.play();
 
       this.detectPose();
     } catch (error) {
       console.error("Blad dostepu do kamery",error);
     }
+}
+
+async loadModel() {
+  console.log("Inicjalizacja TensorFlow.js...");
+  await tf.setBackend('webgl');
+  await tf.ready();
+
+  console.log("Ładowanie modelu MoveNet...");
+  try {
+    this.detector = await posedetection.createDetector(posedetection.SupportedModels.MoveNet, {
+      modelType: posedetection.movenet.modelType.SINGLEPOSE_LIGHTNING
+  });
+  console.log("Model MoveNet został załadowany.");
+  } catch (error) {
+    console.error("Błąd podczas ładowania modelu MoveNet:", error);
+  }
+}
+
+adjustCanvasSize() {
+  const video = this.videoElement.nativeElement;
+  const canvas = this.canvasElement.nativeElement;
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
 }
 
 async detectPose() {
@@ -67,7 +74,7 @@ async detectPose() {
     ctx?.clearRect(0, 0, canvas.width, canvas.height);
 
     if (poses && poses.length > 0) {
-      this.drawPose(poses[0], ctx!)
+      this.drawOnCanvas(poses);
     }
 
     requestAnimationFrame(detect);
@@ -76,16 +83,23 @@ async detectPose() {
   detect();
 }
 
+drawOnCanvas(poses: posedetection.Pose[]) {
+  const ctx = this.canvasElement.nativeElement.getContext('2d');
+  if (ctx) {
+    const video = this.videoElement.nativeElement;
+    drawPose(poses, ctx, video.videoWidth, video.videoHeight);
+  }
+}
 
-drawPose(pose: posedetection.Pose, ctx: CanvasRenderingContext2D) {
-  ctx.fillStyle = 'red';
-  pose.keypoints.forEach(point => {
-    if (point.score && point.score > 0.3) {
-      ctx.beginPath();
-      ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
-      ctx.fill();
-    }
-  });
+stopPoseDetection() {
+  this.isDetecting = false;
+}
+
+clearCanvas() {
+  const ctx = this.canvasElement.nativeElement.getContext('2d');
+  if (ctx) {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  }
 }
 
 stopCamera() {
@@ -94,6 +108,8 @@ stopCamera() {
     this.mediaStream.getTracks().forEach(track => track.stop());
     this.videoElement.nativeElement.srcObject = null;
     this.mediaStream = null as unknown as MediaStream;
+    this.stopPoseDetection();
+    this.clearCanvas();
   }
 }
 
