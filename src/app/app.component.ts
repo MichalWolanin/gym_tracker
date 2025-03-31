@@ -16,13 +16,16 @@ export class AppComponent implements OnDestroy {
 
   mediaStream!: MediaStream;
   detector!: posedetection.PoseDetector;
+  isLoading = false;
   private isDetecting = false;
   
   async startCamera() {
+    this.isLoading = true;
     try {
       await this.loadModel();
       console.log("Startuje kamere");
       this.mediaStream = await navigator.mediaDevices.getUserMedia({ video: true});
+      this.isLoading = false;
 
       this.videoElement.nativeElement.srcObject = this.mediaStream;
       this.videoElement.nativeElement.onloadedmetadata = () => {
@@ -32,8 +35,9 @@ export class AppComponent implements OnDestroy {
 
       this.detectPose();
     } catch (error) {
+      this.isLoading = false;
       console.error("Blad dostepu do kamery",error);
-    }
+    } 
 }
 
 async loadModel() {
@@ -110,6 +114,7 @@ stopCamera() {
     this.mediaStream = null as unknown as MediaStream;
     this.stopPoseDetection();
     this.clearCanvas();
+    this.isLoading = false;
   }
 }
 
