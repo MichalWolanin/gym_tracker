@@ -1,17 +1,4 @@
-<div class="app-component">
-  <div class="app-component__title">
-    <span>Gym Tracker</span>
-  </div>
-  <div class="app-component__camera">
-    <video #videoElement class="app-component__camera-video"></video>
-    <canvas #canvasElement width="640" height="480" class="app-component__camera-canvas"></canvas>
-    <div class="app-component__camera-loading">
-      @if (isLoading) {
-        <span>Loading...</span>}
-    </div>
-    <div class="app-component__camera-controls">
-      <button (click)="startCamera()">Start</button>
-      <button (click)="stopCamera()" [disabled]="!mediaStream">Zatrzymaj</button>
-    </div>
-  </div>
+<div>
+  <span>Gym Tracker</span>
+  <app-movement></app-movement>
 </div>
