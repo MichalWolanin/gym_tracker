@@ -9,6 +9,4 @@ import { MovementComponent } from './components/movement/movement.component';
     styleUrl: './app.component.scss'
 })
 export class AppComponent {
-
 }
-
