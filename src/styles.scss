@@ -9,26 +9,26 @@ body
 :root {
   --p-primary-color: #3B82F6;
   --ground-background: #ffffff;
-  --p-surface-0: #ffffff;      /* Dodaj definicję */
-  --p-surface-900: #212121;    /* Dodaj definicję */
-  --p-text-secondary: #495057; /* Dodaj definicję */
+  --p-surface-0: #ffffff;
+  --p-surface-900: #212121;
+  --p-text-secondary: #495057; 
 }
 
 :host ::ng-deep .p-megamenu {
-  border-radius: 3rem;          /* Zaokrąglenie */
-  background: var(--p-surface-0); /* Tło menu */
-  color: var(--p-text-secondary); /* Kolor tekstu */
+  border-radius: 3rem;         
+  background: var(--p-surface-0); 
+  color: var(--p-text-secondary); 
 
   .p-megamenu-start {
-    margin-right: 1rem;          /* Odstęp od logo */
+    margin-right: 1rem;
   }
 
   .p-megamenu-end {
-    margin-left: 1rem;           /* Odstęp od avatara */
+    margin-left: 1rem;
   }
 
   .p-menuitem-link {
-    border-radius: 2rem !important; /* Zaokrąglenie elementów */
+    border-radius: 2rem !important;
   }
 }
 
@@ -41,12 +41,12 @@ body
     border-radius: 1rem !important;
 
     .p-menuitem-icon {
-      font-size: 1.5rem;            /* Rozmiar ikon */
-      margin-right: 0.5rem;        /* Odstęp od ikony */
+      font-size: 1.5rem;
+      margin-right: 0.5rem; 
     }
 
     .p-menuitem-text {
-      font-size: 1rem;            /* Rozmiar tekstu */
+      font-size: 1rem; 
     }
   }
 }
