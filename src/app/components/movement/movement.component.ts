@@ -4,11 +4,11 @@ import * as posedetection from '@tensorflow-models/pose-detection';
 import { drawPose } from '../../utils/pose-utils';
 
 @Component({
-  selector: 'app-movement',
-  standalone: true,
-  imports: [],
-  templateUrl: './movement.component.html',
-  styleUrl: './movement.component.scss'
+    selector: 'app-movement',
+    standalone: true,
+    imports: [],
+    templateUrl: './movement.component.html',
+    styleUrl: './movement.component.scss'
 })
 export class MovementComponent implements OnDestroy {
   @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
