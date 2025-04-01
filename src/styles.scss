@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+body
+{
+  font-family: "Funnel Display", sans-serif;
+}
+
+:root {
+  --p-primary-color: #3B82F6;
+  --ground-background: #ffffff;
+  --p-surface-0: #ffffff;      /* Dodaj definicję */
+  --p-surface-900: #212121;    /* Dodaj definicję */
+  --p-text-secondary: #495057; /* Dodaj definicję */
+}
+
+:host ::ng-deep .p-megamenu {
+  border-radius: 3rem;          /* Zaokrąglenie */
+  background: var(--p-surface-0); /* Tło menu */
+  color: var(--p-text-secondary); /* Kolor tekstu */
+
+  .p-megamenu-start {
+    margin-right: 1rem;          /* Odstęp od logo */
+  }
+
+  .p-megamenu-end {
+    margin-left: 1rem;           /* Odstęp od avatara */
+  }
+
+  .p-menuitem-link {
+    border-radius: 2rem !important; /* Zaokrąglenie elementów */
+  }
+}
+
+/* Style dla elementów w rozwijanym menu */
+:host ::ng-deep .p-megamenu-panel {
+  .p-menuitem-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 1rem !important;
+
+    .p-menuitem-icon {
+      font-size: 1.5rem;            /* Rozmiar ikon */
+      margin-right: 0.5rem;        /* Odstęp od ikony */
+    }
+
+    .p-menuitem-text {
+      font-size: 1rem;            /* Rozmiar tekstu */
+    }
+  }
+}
