@@ -94,27 +94,27 @@ export function checkForRep(
   const rightShoulder = keypoints.find((point) => point.name === 'right_shoulder');
 
   if (rightWrist && rightElbow && rightShoulder &&
-      typeof rightWrist.score === 'number' && rightWrist.score > SCORE_THRESHOLD &&
-      typeof rightElbow.score === 'number' && rightElbow.score > SCORE_THRESHOLD &&
-      typeof rightShoulder.score === 'number' && rightShoulder.score > SCORE_THRESHOLD){
+    typeof rightWrist.score === 'number' && rightWrist.score > SCORE_THRESHOLD &&
+    typeof rightElbow.score === 'number' && rightElbow.score > SCORE_THRESHOLD &&
+    typeof rightShoulder.score === 'number' && rightShoulder.score > SCORE_THRESHOLD) {
 
-      const rightAngleValue = calculateAngle(rightWrist, rightElbow, rightShoulder);
-      setRightAngle(rightAngleValue);
+    const rightAngleValue = calculateAngle(rightWrist, rightElbow, rightShoulder);
+    setRightAngle(rightAngleValue);
 
-      if (rightAngleValue < ANGLE_UP_THRESHOLD && !rightArmIsUp) {
-          rightArmIsUp = true;
-          setRightArmIsUp(true);
-      }
-      if (rightAngleValue > ANGLE_DOWN_THRESHOLD && rightArmIsUp) {
-          rightArmIsUp = false;
-          setRightArmIsUp(false);
-          rightArmReps++;
-          setRightArmReps(rightArmReps);
-          console.log("Prawa reka", rightArmReps);
-      }
-  } else {
-      setRightAngle(null);
-  }
+    if (rightAngleValue < ANGLE_UP_THRESHOLD && !rightArmIsUp) {
+        rightArmIsUp = true;
+        setRightArmIsUp(true);
+        rightArmReps++;
+        setRightArmReps(rightArmReps);
+        console.log("Prawa reka", rightArmReps);
+    }
+    if (rightAngleValue > ANGLE_DOWN_THRESHOLD && rightArmIsUp) {
+        rightArmIsUp = false;
+        setRightArmIsUp(false);
+    }
+} else {
+    setRightAngle(null);
+}
 
   if (leftWrist && leftElbow && leftShoulder &&
     typeof leftWrist.score === 'number' && leftWrist.score > SCORE_THRESHOLD &&
@@ -124,20 +124,20 @@ export function checkForRep(
     const leftAngleValue = calculateAngle(leftWrist, leftElbow, leftShoulder);
     setLeftAngle(leftAngleValue);
 
-     if (leftAngleValue < ANGLE_UP_THRESHOLD && !leftArmIsUp) {
-          leftArmIsUp = true;
-          setLeftArmIsUp(true);
-      }
-      if (leftAngleValue > ANGLE_DOWN_THRESHOLD && leftArmIsUp) {
-          leftArmIsUp = false;
-          setLeftArmIsUp(false);
-          leftArmReps++;
-          setLeftArmReps(leftArmReps);
-          console.log("Lewa reka", leftArmReps);
-      }
-  } else {
+    if (leftAngleValue < ANGLE_UP_THRESHOLD && !leftArmIsUp) {
+        leftArmIsUp = true;
+        setLeftArmIsUp(true);
+        leftArmReps++;
+        setLeftArmReps(leftArmReps);
+        console.log("Lewa reka", leftArmReps);
+    }
+    if (leftAngleValue > ANGLE_DOWN_THRESHOLD && leftArmIsUp) {
+        leftArmIsUp = false;
+        setLeftArmIsUp(false);
+    }
+} else {
     setLeftAngle(null);
-  }
+}
 
   return { leftArmReps, rightArmReps, leftArmIsUp, rightArmIsUp }; 
 }

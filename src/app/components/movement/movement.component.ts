@@ -30,8 +30,8 @@ export class MovementComponent implements OnDestroy, AfterViewInit {
   leftArmIsUp = false;
   rightArmIsUp = false;
 
-  ANGLE_UP_THRESHOLD = 30;
-  ANGLE_DOWN_THRESHOLD = 100;
+  ANGLE_UP_THRESHOLD = 40;
+  ANGLE_DOWN_THRESHOLD = 140;
   SCORE_THRESHOLD = 0.3;
 
   POSE_CONNECTIONS = POSE_CONNECTIONS;
