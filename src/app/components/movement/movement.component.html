@@ -3,12 +3,21 @@
       <video #videoElement class="movement-component__camera-video"></video>
       <canvas #canvasElement width="640" height="480" class="movement-component__camera-canvas"></canvas>
       <div class="movement-component__camera-loading">
-        @if (isLoading) {
+        @if (isLoading()) {
           <span>Loading...</span>}
       </div>
       <div class="movement-component__camera-controls">
         <button (click)="startCamera()">Start</button>
         <button (click)="stopCamera()" [disabled]="!mediaStream">Zatrzymaj</button>
       </div>
+    </div>
+    <div id="leftArm">
+      Left Arm: <span id="leftArmCounter">{{ leftArmReps() }}</span>
+      Angle: <span #leftAngleElement>{{ leftAngle() !== null ? leftAngle() : 'Brak' }}</span>
+    </div>
+    
+    <div id="rightArm">
+      Right Arm: <span id="rightArmCounter">{{ rightArmReps() }}</span>
+      Angle: <span #rightAngleElement>{{ rightAngle() !== null ? rightAngle() : 'Brak' }}</span>
     </div>
   </div>
