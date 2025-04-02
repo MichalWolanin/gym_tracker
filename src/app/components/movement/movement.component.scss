@@ -1,4 +1,7 @@
 .movement-component {
+    position: relative;
+    margin-top: 20px;
+
     .movement-component__camera {
         display: flex;
         justify-content: center;
@@ -27,4 +30,58 @@
         height: 100%;
         pointer-events: none;
     }
+
+    .movement-component__counter {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        z-index: 1;
+      }
+      
+      .movement-component__counter-box {
+        background: rgba(240, 240, 240, 0.8);
+        padding: 10px 20px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 400px;
+        margin: 0 auto;
+      }
+      
+      .movement-component__counter-left,
+      .movement-component__counter-right {
+        text-align: center;
+      }
+      
+      .movement-component__counter-reps {
+        font-size: 3em;
+        font-weight: bold;
+        color: #333;
+      }
+      
+      .movement-component__counter-angle {
+        color: var(--p-sky-500);
+        font-size: 0.9em;
+      }
+      
+      .highlight {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 400px;
+        height: 60px;
+        background: radial-gradient(ellipse at center, rgba(0, 255, 0, 0.3) 0%, rgba(0, 255, 0, 0) 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none;
+        border-radius: 50%;
+      
+        &.active {
+          opacity: 1;
+        }
+      }
 }

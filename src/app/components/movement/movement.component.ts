@@ -29,11 +29,14 @@ export class MovementComponent implements OnDestroy, AfterViewInit {
   rightAngle = signal<number | null>(null);
   leftArmIsUp = false;
   rightArmIsUp = false;
+  leftArmHighlight: boolean = false;
+  rightArmHighlight: boolean = false; 
+  pointSound = new Audio('assets/point-sound.mp3');
+  playbackRate = 2;
 
   ANGLE_UP_THRESHOLD = 40;
   ANGLE_DOWN_THRESHOLD = 140;
   SCORE_THRESHOLD = 0.3;
-
   POSE_CONNECTIONS = POSE_CONNECTIONS;
 
   ngAfterViewInit(): void {
@@ -102,22 +105,29 @@ export class MovementComponent implements OnDestroy, AfterViewInit {
       const poses = await this.detector.estimatePoses(video);
 
       if (poses && poses.length > 0) {
-   
-       checkForRep(
-            poses,
-            this.ANGLE_UP_THRESHOLD,
-            this.ANGLE_DOWN_THRESHOLD,
-            this.SCORE_THRESHOLD,
-            this.leftArmIsUp,
-            this.rightArmIsUp,
-            this.leftArmReps(), 
-            this.rightArmReps(), 
-            (value) => this.leftArmReps.set(value), 
-            (value) => this.rightArmReps.set(value), 
-            (value) => this.leftAngle.set(value),
-            (value) => this.rightAngle.set(value),
-            (value) => this.leftArmIsUp = value,
-            (value) => this.rightArmIsUp = value
+        checkForRep(
+          poses,
+          this.ANGLE_UP_THRESHOLD,
+          this.ANGLE_DOWN_THRESHOLD,
+          this.SCORE_THRESHOLD,
+          this.leftArmIsUp,
+          this.rightArmIsUp,
+          this.leftArmReps(),
+          this.rightArmReps(),
+          (value) => { 
+            this.leftArmReps.set(value);
+            this.triggerHighlight('left');
+            this.playSound();
+          },
+          (value) => { 
+            this.rightArmReps.set(value);
+            this.triggerHighlight('right');
+            this.playSound();
+          },
+          (value) => this.leftAngle.set(value),
+          (value) => this.rightAngle.set(value),
+          (value) => this.leftArmIsUp = value,
+          (value) => this.rightArmIsUp = value
         );
       }
 
@@ -156,5 +166,20 @@ export class MovementComponent implements OnDestroy, AfterViewInit {
       this.clearCanvas();
       this.isLoading.set(false);
     }
+  }
+
+  triggerHighlight(arm: 'left' | 'right') {
+    if (arm === 'left') {
+      this.leftArmHighlight = true;
+      setTimeout(() => this.leftArmHighlight = false, 300); 
+    } else {
+      this.rightArmHighlight = true;
+      setTimeout(() => this.rightArmHighlight = false, 300);
+    }
+  }
+
+  playSound() {
+    this.pointSound.playbackRate = this.playbackRate;
+    this.pointSound.play();
   }
 }

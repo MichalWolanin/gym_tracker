@@ -11,13 +11,23 @@
         <button (click)="stopCamera()" [disabled]="!mediaStream">Zatrzymaj</button>
       </div>
     </div>
-    <div id="leftArm">
-      Left Arm: <span id="leftArmCounter">{{ leftArmReps() }}</span>
-      Angle: <span #leftAngleElement>{{ leftAngle() !== null ? leftAngle() : 'Brak' }}</span>
-    </div>
-    
-    <div id="rightArm">
-      Right Arm: <span id="rightArmCounter">{{ rightArmReps() }}</span>
-      Angle: <span #rightAngleElement>{{ rightAngle() !== null ? rightAngle() : 'Brak' }}</span>
-    </div>
+    <div class="movement-component__counter">
+      <div class="movement-component__counter-box">
+        <div class="movement-component__counter-left">
+          <span class="highlight" [class.active]="leftArmHighlight"></span>
+          LEFT ARM
+          <div class="movement-component__counter-reps">{{ leftArmReps() }}</div>
+          <div class="movement-component__counter-angle">
+            <span #leftAngleElement>{{ leftAngle() !== null ? leftAngle() + '°' : '-' }}</span>
+          </div>
+        </div>
+        <div class="movement-component__counter-right">
+          <span class="highlight" [class.active]="rightArmHighlight"></span>
+          RIGHT ARM
+          <div class="movement-component__counter-reps">{{ rightArmReps() }}</div>
+          <div class="movement-component__counter-angle">
+            <span #rightAngleElement>{{ rightAngle() !== null ? rightAngle() + '°' : '-' }}</span>
+          </div>
+        </div>
+      </div>
   </div>

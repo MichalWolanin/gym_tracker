@@ -62,7 +62,7 @@ export function calculateAngle(firstPoint: posedetection.Keypoint, midPoint: pos
   let angle = Math.abs((radians * 180.0) / Math.PI);
 
   angle = angle > 180 ? 360 - angle : angle;
-  return angle;
+  return Math.round(angle);
 }
 
 export function checkForRep(
