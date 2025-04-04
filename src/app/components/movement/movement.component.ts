@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnDestroy, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnDestroy, signal, inject } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
 import * as posedetection from '@tensorflow-models/pose-detection';
 import { drawPose, checkForRep } from '../../utils/pose-utils'; 
@@ -6,6 +6,7 @@ import { POSE_CONNECTIONS } from '../../utils/pose-utils';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { RepsService } from '../../services/reps.service';
 
 @Component({
   selector: 'app-movement',
@@ -19,6 +20,7 @@ export class MovementComponent implements OnDestroy {
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
   @ViewChild('rightAngleElement') rightAngleElement!: ElementRef;
   @ViewChild('leftAngleElement') leftAngleElement!: ElementRef;
+  public repsService = inject(RepsService);
 
   mediaStream!: MediaStream;
   detector!: posedetection.PoseDetector;
@@ -93,6 +95,9 @@ export class MovementComponent implements OnDestroy {
     const canvas = this.canvasElement.nativeElement;
     const ctx = canvas.getContext('2d');
 
+    let leftReps = this.repsService.leftArmReps();
+    let rightReps = this.repsService.rightArmReps();
+
     const detect = async () => {
       if (!this.isDetecting) return;
 
@@ -106,15 +111,17 @@ export class MovementComponent implements OnDestroy {
           this.SCORE_THRESHOLD,
           this.leftArmIsUp,
           this.rightArmIsUp,
-          this.leftArmReps(),
-          this.rightArmReps(),
+          leftReps,
+          rightReps,
           (value) => { 
-            this.leftArmReps.set(value);
+            leftReps = value;
+            this.repsService.checkAndSetReps(leftReps, rightReps)
             this.triggerHighlight('left');
             this.playSound();
           },
           (value) => { 
-            this.rightArmReps.set(value);
+            rightReps = value;
+            this.repsService.checkAndSetReps(leftReps, rightReps)
             this.triggerHighlight('right');
             this.playSound();
           },
@@ -150,7 +157,7 @@ export class MovementComponent implements OnDestroy {
     }
   }
 
-  stopCamera() {
+  async stopCamera() {
     if (this.mediaStream) {
       this.mediaStream.getTracks().forEach(track => track.stop());
       this.videoElement.nativeElement.srcObject = null;
@@ -158,6 +165,8 @@ export class MovementComponent implements OnDestroy {
       this.stopPoseDetection();
       this.clearCanvas();
       this.isLoading.set(false);
+      await this.repsService.saveReps();
+      this.repsService.resetReps();
     }
   }
 

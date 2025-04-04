@@ -14,7 +14,7 @@
         <div class="movement-component__counter-left">
           <span class="highlight" [class.active]="leftArmHighlight"></span>
           LEFT ARM
-          <div class="movement-component__counter-reps">{{ leftArmReps() }}</div>
+          <div class="movement-component__counter-reps">{{ repsService.leftArmReps() }}</div>
           <div class="movement-component__counter-angle">
             <span #leftAngleElement>{{ leftAngle() !== null ? leftAngle() + '°' : '-' }}</span>
           </div>
@@ -22,7 +22,7 @@
         <div class="movement-component__counter-right">
           <span class="highlight" [class.active]="rightArmHighlight"></span>
           RIGHT ARM
-          <div class="movement-component__counter-reps">{{ rightArmReps() }}</div>
+          <div class="movement-component__counter-reps">{{ repsService.rightArmReps() }}</div>
           <div class="movement-component__counter-angle">
             <span #rightAngleElement>{{ rightAngle() !== null ? rightAngle() + '°' : '-' }}</span>
           </div>
