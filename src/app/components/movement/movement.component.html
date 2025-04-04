@@ -6,13 +6,10 @@
         @if (isLoading()) {
           <span>Loading...</span>}
       </div>
-      <div class="movement-component__camera-controls">
-        <button (click)="startCamera()">Start</button>
-        <button (click)="stopCamera()" [disabled]="!mediaStream">Zatrzymaj</button>
-      </div>
     </div>
     <div class="movement-component__counter">
       <div class="movement-component__counter-box">
+          <p-button icon="pi pi-play" [rounded]="true" severity="success" (click)="startCamera()"/>
         <div class="movement-component__counter-left">
           <span class="highlight" [class.active]="leftArmHighlight"></span>
           LEFT ARM
@@ -29,5 +26,7 @@
             <span #rightAngleElement>{{ rightAngle() !== null ? rightAngle() + '°' : '-' }}</span>
           </div>
         </div>
+        <p-button icon="pi pi-stop" [rounded]="true" severity="danger" (click)="stopCamera()" [disabled]="!mediaStream"/>
+
       </div>
   </div>

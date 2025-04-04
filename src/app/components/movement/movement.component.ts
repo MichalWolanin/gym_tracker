@@ -4,11 +4,12 @@ import * as posedetection from '@tensorflow-models/pose-detection';
 import { drawPose, checkForRep } from '../../utils/pose-utils'; 
 import { POSE_CONNECTIONS } from '../../utils/pose-utils';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-movement',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonModule],
   templateUrl: './movement.component.html',
   styleUrl: './movement.component.scss'
 })
