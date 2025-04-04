@@ -1,0 +1,53 @@
+.interactive-image-component {
+    position: relative;
+    width: 400px;
+    height: 500px; 
+  }
+
+  .interactive-image-component__picture {
+    width: 100%;
+    height: auto;
+  }
+
+  .interactive-image__button-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+  }
+
+  .interactive-image__line {
+    width: 50px; 
+    height: 2px;
+    background-color: black;
+    margin-left: 10px;
+  }
+
+  .man-arms {
+    top: 45%;
+    right: 80%;
+  }
+  
+  .woman-arms {
+    top: 30%;
+    right: 55%;
+  }
+  
+  .man-torso {
+    top: 65%;
+    right: 50%;
+  }
+  
+  .woman-torso {
+    top: 45%;
+    right: 50%;
+  }
+  
+  .man-legs {
+    top: 95%;
+    right: 60%;
+  }
+  
+  .woman-legs {
+    top: 70%;
+    right: 60%;
+  }

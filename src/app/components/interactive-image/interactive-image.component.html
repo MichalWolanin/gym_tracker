@@ -1,0 +1,27 @@
+  <div class="interactive-image-component">
+    <img [src]="imageSource | async" alt="Osoba" class="interactive-image-component__picture"/>
+    <div class="interactive-image__button-container" [ngClass]="{
+      'man-arms': currentGender === 'man',
+      'woman-arms': currentGender === 'woman'
+      }" >
+      <p-button label="Arms" routerLink="/arms" [rounded]="true"/>
+      <div class="interactive-image__line"></div>
+    </div>
+  
+    <div class="interactive-image__button-container" [ngClass]="{
+      'man-torso': currentGender === 'man',
+      'woman-torso': currentGender === 'woman'
+    }">
+      <p-button label="Torso" icon="pi pi-sparkles" [rounded]="true" disabled="true" severity="warn"/>
+      <div class="interactive-image__line"></div>
+    </div>
+  
+    <div class="interactive-image__button-container" [ngClass]="{
+      'man-legs': currentGender === 'man',
+      'woman-legs': currentGender === 'woman'
+    }">
+      <p-button label="Legs" icon="pi pi-sparkles" [rounded]="true" disabled="true" severity="warn"/>
+      <div class="interactive-image__line"></div>
+    </div>
+  </div>
+  

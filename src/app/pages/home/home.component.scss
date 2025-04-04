@@ -1,0 +1,25 @@
+.home-component {
+    text-align: center;
+    margin-top: 50px;
+
+    .home-component__content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .home-component__title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+
+        .home-component__title-highlight-name {
+            font-weight: bold;
+            color: var(--p-primary-color);
+      }
+    }
+
+    .home-component__subtitle {
+      font-size: 1.5rem;
+    }
+}

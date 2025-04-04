@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnDestroy, AfterViewInit, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnDestroy, signal } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
 import * as posedetection from '@tensorflow-models/pose-detection';
 import { drawPose, checkForRep } from '../../utils/pose-utils'; 
@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './movement.component.html',
   styleUrl: './movement.component.scss'
 })
-export class MovementComponent implements OnDestroy, AfterViewInit {
+export class MovementComponent implements OnDestroy {
   @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
   @ViewChild('rightAngleElement') rightAngleElement!: ElementRef;
@@ -38,10 +38,6 @@ export class MovementComponent implements OnDestroy, AfterViewInit {
   ANGLE_DOWN_THRESHOLD = 140;
   SCORE_THRESHOLD = 0.3;
   POSE_CONNECTIONS = POSE_CONNECTIONS;
-
-  ngAfterViewInit(): void {
-    this.startCamera();
-  }
 
   ngOnDestroy(): void {
     this.stopCamera();

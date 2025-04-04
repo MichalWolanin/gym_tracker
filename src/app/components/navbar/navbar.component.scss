@@ -1,0 +1,14 @@
+.navbar-component {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 20px;
+  width: 100%;
+
+  .navbar-component__logo {
+    width: 50px;
+    margin-right: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+}
