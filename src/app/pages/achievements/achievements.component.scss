@@ -1,0 +1,33 @@
+.achievements-component {
+    display: flex;
+
+    .achievements-component__content-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 50px;
+    }
+    .achievements-component__counter-box {
+        background: rgba(240, 240, 240, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 400px;
+        margin: 0 auto;
+      }
+    
+      .achievements-component__counter-left,
+      .movement-component__counter-right {
+        text-align: center;
+      }
+      
+      .achievements-component__counter-reps {
+        font-size: 3em;
+        font-weight: bold;
+        color: #333;
+      }
+}
+
+  

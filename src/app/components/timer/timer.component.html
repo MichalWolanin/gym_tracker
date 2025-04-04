@@ -1,0 +1,8 @@
+<div class="timer">
+    <div class="timer__display">{{ formatTime(trainingTime) }}</div>
+    <div class="timer__controls">
+        <p-button (click)="startTimer()" [disabled]="isRunning" icon="pi pi-play" />
+        <p-button (click)="stopTimer()" [disabled]="!isRunning" icon="pi pi-pause" severity="secondary" />
+        <p-button (click)="resetTimer()" icon="pi pi-stopwatch" severity="danger" />
+    </div>
+  </div>

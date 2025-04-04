@@ -1,0 +1,27 @@
+.timer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+  
+    &__display {
+      font-size: 1.2rem;
+      margin-right: 10px;
+    }
+  
+    &__controls {
+      button {
+        margin-left: 5px;
+        padding: 5px 10px;
+        border: none;
+        background-color: #eee;
+        cursor: pointer;
+  
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  

@@ -5,10 +5,20 @@
   padding-top: 20px;
   width: 100%;
 
+  .navbar-component__buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   .navbar-component__logo {
     width: 50px;
     margin-right: 20px;
     margin-left: 10px;
     cursor: pointer;
+  }
+
+  .navbar-component__timer {
+    margin-left: auto;
   }
 }
