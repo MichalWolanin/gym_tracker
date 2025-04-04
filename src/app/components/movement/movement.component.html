@@ -2,12 +2,13 @@
     <div class="movement-component__camera">
       <video #videoElement class="movement-component__camera-video"></video>
       <canvas #canvasElement width="640" height="480" class="movement-component__camera-canvas"></canvas>
-      <div class="movement-component__camera-loading">
-        @if (isLoading()) {
-          <span>Loading...</span>}
-      </div>
     </div>
     <div class="movement-component__counter">
+      <div class="movement-component__camera-loading">
+        @if (isLoading()) {
+          <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
+        }
+      </div>
       <div class="movement-component__counter-box">
           <p-button icon="pi pi-play" [rounded]="true" severity="success" (click)="startCamera()"/>
         <div class="movement-component__counter-left">

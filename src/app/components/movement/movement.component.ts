@@ -5,11 +5,12 @@ import { drawPose, checkForRep } from '../../utils/pose-utils';
 import { POSE_CONNECTIONS } from '../../utils/pose-utils';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
   selector: 'app-movement',
   standalone: true,
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, ProgressBarModule],
   templateUrl: './movement.component.html',
   styleUrl: './movement.component.scss'
 })
