@@ -49,7 +49,6 @@ export class MovementComponent implements OnDestroy {
     this.isLoading.set(true);
     try {
       await this.loadModel();
-      console.log("Startuje kamere");
       this.mediaStream = await navigator.mediaDevices.getUserMedia({ video: true});
       this.isLoading.set(false);
 
@@ -62,23 +61,20 @@ export class MovementComponent implements OnDestroy {
       this.detectPose();
     } catch (error) {
       this.isLoading.set(false);
-      console.error("Blad dostepu do kamery",error);
+      alert("Wystąpił problem z dostępem do kamery. Sprawdź, czy kamera jest podłączona i czy masz uprawnienia do korzystania z niej.")
     }
   }
 
   async loadModel() {
-    console.log("Inicjalizacja TensorFlow.js...");
     await tf.setBackend('webgl');
     await tf.ready();
 
-    console.log("Ładowanie modelu MoveNet...");
     try {
       this.detector = await posedetection.createDetector(posedetection.SupportedModels.MoveNet, {
         modelType: posedetection.movenet.modelType.SINGLEPOSE_LIGHTNING
     });
-    console.log("Model MoveNet został załadowany.");
     } catch (error) {
-      console.error("Błąd podczas ładowania modelu MoveNet:", error);
+      alert("Wystąpił problem z ładowaniem modelu MoveNet. Spróbuj odświeżyć stronę.")
     }
   }
 
@@ -156,7 +152,6 @@ export class MovementComponent implements OnDestroy {
 
   stopCamera() {
     if (this.mediaStream) {
-      console.log("Zatrzymuje kamere");
       this.mediaStream.getTracks().forEach(track => track.stop());
       this.videoElement.nativeElement.srcObject = null;
       this.mediaStream = null as unknown as MediaStream;
