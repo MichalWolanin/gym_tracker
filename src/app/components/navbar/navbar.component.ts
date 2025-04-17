@@ -32,11 +32,8 @@ export class NavbarComponent {
       pauseTime: data.pauseTime
     });
     localStorage.setItem('dailyTrainingData', JSON.stringify(this.dailyTrainingData));
-
-    this.dialogVisible = data.showDialog;
   }
-
-  showDialog() {
-    this.dialogVisible = true;
-  }
+    showDialog() {
+      this.dialogService.showDialog();
+    }
 }

@@ -33,6 +33,6 @@ export class UserComponent{
 
   saveSettings() {
     this.genderService.setGender(this.value);
-    this.dialogService.hideDialog(); // Zamknij dialog po zapisaniu
+    this.dialogService.hideDialog();
 }
 }
