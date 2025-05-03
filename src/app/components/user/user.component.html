@@ -1,10 +1,14 @@
 <p-dialog header="Edit Profile" [modal]="true" [visible]="visible()" [style]="{ width: '25rem' }">
     <span class="p-text-secondary block mb-5">Update your information.</span>
+    @if (email() !== '') {
+        <p>User: {{ email() }}</p>
+      }
     <div class="card flex justify-center">
         <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" style="margin-bottom: 1rem;"/>
     </div>
     <div class="flex justify-end gap-2">
         <p-button label="Cancel" severity="secondary" (click)="hideDialog()" />
         <p-button label="Save" (click)="saveSettings()"></p-button>
+        <p-button label="Logout" (click)="logout()"></p-button>
     </div>
-</p-dialog>
+</p-dialog> 
